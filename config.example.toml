@@ -1,0 +1,39 @@
+[daemon]
+poll_interval = 30
+db_path = "data/monitor.db"
+retention_days = 30
+
+[telegram]
+enabled = false
+bot_token = "123456789:AAExampleTokenHere"
+chat_id = "-1001234567890"
+# only notify after 2 consecutive failures to prevent noise
+failure_threshold = 2
+# don't alert more than once every 15 minutes for the same down service
+reminder_interval_min = 15
+
+[[targets]]
+id = "billing-webhook"
+name = "Legacy Billing Webhook"
+url = "https://billing.example.internal/healthz"
+type = "http"
+expected_status = 200
+timeout_sec = 5.0
+
+[[targets]]
+id = "crm-sync"
+name = "CRM Event Bridge"
+url = "https://crm-sync.internal/api/ping"
+type = "http"
+expected_status = 200
+timeout_sec = 4.0
+# custom header if the endpoint requires simple auth
+headers = {"X-Monitor-Probe" = "1"}
+
+[[targets]]
+id = "db-tunnel"
+name = "Postgres SSH Tunnel Port"
+host = "127.0.0.1"
+port = 5433
+type = "tcp"
+timeout_sec = 2.0
