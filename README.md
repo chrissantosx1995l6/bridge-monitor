@@ -57,4 +57,4 @@ WantedBy=multi-user.target
 - The SQLite DB creates an index on `(target_id, timestamp)`. If you leave it running for months, purge rows older than 30 days or set `retention_days = 30` in the config.
 - Telegram alerts debounce flapping targets so your phone doesn't buzz every 30 seconds if a gateway is restarting.
 
-<!-- checked: 2026-09-10 -->
+<!-- checked: 2026-09-11 -->
